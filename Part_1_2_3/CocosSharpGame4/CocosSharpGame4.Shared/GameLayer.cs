@@ -15,7 +15,7 @@ namespace CocosSharpGame4.Shared
         CCSprite ballSprite;
 
         float ballXVelocity;
-        float ballYVelocity;
+        float ballYVelocity = 300;
         const float gravity = 140;
         int score;
         int lives = 3;
@@ -52,15 +52,19 @@ namespace CocosSharpGame4.Shared
                 return;
             }
 
-            ballYVelocity += frameTimeInSeconds * -gravity;
+            Console.WriteLine($"Ball velocity: {ballYVelocity}");
+
+            // Move ball
+            //ballYVelocity += frameTimeInSeconds * -gravity;
             ballSprite.PositionX += ballXVelocity * frameTimeInSeconds;
             ballSprite.PositionY += ballYVelocity * frameTimeInSeconds;
 
-            if ( ballSprite.PositionY < 0 )
+            // Check for ball falling off the bottom
+            if (ballSprite.PositionY < 0)
             {
                 lives--;
                 label.Text = string.Format("Lives: {0} Score: {1}", lives, score);
-                if ( lives == 0 )
+                if (lives == 0)
                 {
                     // Game over
                     gameOver.Visible = true;
@@ -73,6 +77,7 @@ namespace CocosSharpGame4.Shared
                 }
             }
 
+            // Check for paddle hit
             bool doesBallOverlapPaddle = ballSprite.BoundingBoxTransformedToParent.IntersectsRect(paddle.BoundingBoxTransformedToParent);
             bool isMovingDownward = ballYVelocity < 0;
             if (doesBallOverlapPaddle && isMovingDownward)
@@ -86,6 +91,7 @@ namespace CocosSharpGame4.Shared
                 label.Text = string.Format("Lives: {0} Score: {1}", lives, score);
             }
 
+            // Check left and right bounds
             float ballRight = ballSprite.BoundingBoxTransformedToParent.MaxX;
             float ballLeft = ballSprite.BoundingBoxTransformedToParent.MinX;
             float screenRight = VisibleBoundsWorldspace.MaxX;
@@ -99,6 +105,16 @@ namespace CocosSharpGame4.Shared
             {
                 ballXVelocity *= -1;
             }
+
+            // Check for top bounds (bottom handled above)
+            float ballTop = ballSprite.BoundingBoxTransformedToParent.MaxY;
+            float screenTop = VisibleBoundsWorldspace.MaxY;
+
+            if ( ballTop > screenTop && ballYVelocity > 0 )
+            {
+                ballYVelocity *= -1;
+            }
+
         }
 
         protected override void AddedToScene()
