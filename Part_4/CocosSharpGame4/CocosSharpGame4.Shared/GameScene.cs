@@ -21,14 +21,13 @@ namespace CocosSharpGame4.Shared
 
         private void CreateBackground(CCWindow window, CCLayer backgroundLayer)
         {
-            //var texture = new CCTexture2D("tilesmall.png");
-            //texture.SamplerState = SamplerState.LinearWrap;
-            //var background = new CCSprite(texture);
-            //background.ContentSize = new CCSize(window.WindowSizeInPixels.Width, window.WindowSizeInPixels.Height);
-            //background.TextureRectInPixels = new CCRect(0,0, window.WindowSizeInPixels.Width, window.WindowSizeInPixels.Height);
-            //background.PositionX = window.WindowSizeInPixels.Width / 2;
-            //background.PositionY = window.WindowSizeInPixels.Height / 2;
-            //backgroundLayer.AddChild(background);
+            var texture = new CCTexture2D("tilesmall");
+            texture.SamplerState = SamplerState.LinearWrap;
+            var background = new CCSprite(texture);
+            background.ContentSize = new CCSize(window.WindowSizeInPixels.Width, window.WindowSizeInPixels.Height);
+            background.TextureRectInPixels = new CCRect(0, 0, window.WindowSizeInPixels.Width, window.WindowSizeInPixels.Height);
+            background.AnchorPoint = new CCPoint(0, 0);
+            backgroundLayer.AddChild(background);
 
             //var background = new CCSprite("tilebig_p.png");
             //background.AnchorPoint = new CCPoint(0, 0);

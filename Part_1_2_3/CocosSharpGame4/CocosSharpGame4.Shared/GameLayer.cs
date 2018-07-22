@@ -7,7 +7,6 @@ namespace CocosSharpGame4.Shared
 {
     public class GameLayer : CCLayerColor
     {
-
         // Define a label variable
         CCLabel label;
         CCLabel gameOver;
@@ -51,8 +50,6 @@ namespace CocosSharpGame4.Shared
             {
                 return;
             }
-
-            Console.WriteLine($"Ball velocity: {ballYVelocity}");
 
             // Move ball
             //ballYVelocity += frameTimeInSeconds * -gravity;
@@ -125,8 +122,8 @@ namespace CocosSharpGame4.Shared
             var bounds = VisibleBoundsWorldspace;
 
             // position the label on the center of the screen
-            label.PositionX = label.ScaledContentSize.Width / 2;
-            label.PositionY = label.ScaledContentSize.Height / 2;
+            label.PositionX = label.ContentSize.Width / 2;
+            label.PositionY = label.ContentSize.Height / 2;
             gameOver.Position = bounds.Center;
 
             // Register for touch events
